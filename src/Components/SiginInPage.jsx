@@ -35,8 +35,6 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme({
   typography: {
     fontFamily: "Arial",
@@ -54,6 +52,8 @@ export default function KairosSignIn() {
     const data = new FormData(event.currentTarget);
     const submittedEmail = data.get("email");
     const submittedPassword = data.get("password");
+    const apikey = "02e25bd1-d7bf-4687-bd38-c81effcf91fd";
+    const authkey = "YWRtaW5AbWl0LmNvbS5zZzpLQE0hdFBAc3M5OQ==";
 
     if (submittedEmail && submittedPassword) {
       setDisableButton(true);
@@ -70,8 +70,8 @@ export default function KairosSignIn() {
 
         const response = await axios.post(endPoint, userCredentials, {
           headers: {
-            apikey: "02e25bd1-d7bf-4687-bd38-c81effcf91fd",
-            authkey: "YWRtaW5AbWl0LmNvbS5zZzpLQE0hdFBAc3M5OQ==",
+            apikey,
+            authkey,
             "Content-Type": "application/json",
           },
         });
@@ -79,9 +79,9 @@ export default function KairosSignIn() {
         // console.log(response.data);
 
         // Handle success response
-        // navigate("/");
+        navigate("/");
         localStorage.setItem("jwtToken", response.data.token);
-        console.log("Login successful:", response.data);
+        // console.log("Login successful:", response.data);
       } catch (error) {
         setError(error);
         setDisableButton(false);
@@ -119,7 +119,6 @@ export default function KairosSignIn() {
             {error && (
               <Alert variant="filled" severity="error" sx={{ m: 2 }}>
                 Email or Password is not correct{" "}
-                {/* Assuming error object has a 'message' property */}
               </Alert>
             )}
             <Box
