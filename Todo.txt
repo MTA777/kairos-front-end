@@ -1,0 +1,9 @@
+//for MiddleSection
+
+1- add date range picker
+2- Fixed bug of useEffect
+
+
+//for Table
+
+1- Implement Graph 

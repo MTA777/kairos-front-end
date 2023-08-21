@@ -1,4 +1,4 @@
-import SignInPage from "./Components/SiginInPage";
+import SignInPage from "./Pages/SiginInPage";
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -6,13 +6,13 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import HomePage from "./HomePage";
+import HomePage from "./Pages/HomePage";
 
 function App() {
   //to protect private routes
   const PrivateRoute = ({ children }) => {
     const isAuth = localStorage.getItem("jwtToken");
-    console.log(isAuth);
+    // console.log(isAuth);
     return isAuth ? children : <Navigate to="/signin" />;
   };
 
