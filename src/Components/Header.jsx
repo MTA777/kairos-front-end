@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
 import { CardMedia } from "@mui/material";
@@ -23,7 +20,7 @@ import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import DownloadIcon from "@mui/icons-material/Download";
 
 function Header(props) {
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -48,9 +45,9 @@ function Header(props) {
     handleCloseMenu();
   };
 
-  const handleNavigateToGenrePage = (id) => {
-    navigate(`/api/genre/${id}/series`);
-  };
+  // const handleNavigateToGenrePage = (id) => {
+  //   navigate(`/api/genre/${id}/series`);
+  // };
 
   return (
     <React.Fragment>
