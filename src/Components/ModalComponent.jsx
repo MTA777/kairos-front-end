@@ -31,6 +31,7 @@ import {
 const ModalComponent = ({ open, onClose, selectedOrderId }) => {
   const [fetchedData, setFetchedData] = useState(null);
   const [openBackDrop, setOpenBackDrop] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -54,6 +55,7 @@ const ModalComponent = ({ open, onClose, selectedOrderId }) => {
       // console.log(response.data);
       setFetchedData(response.data);
       setOpenBackDrop(false);
+      setOpenModal(true);
     } catch (error) {
       // Handle errors here
       console.error("Error:", error);
@@ -79,24 +81,35 @@ const ModalComponent = ({ open, onClose, selectedOrderId }) => {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-      <Modal open={open} onClose={onClose}>
+      <Modal
+        disableAutoFocus={true}
+        open={openModal}
+        onClose={() => {
+          onClose();
+          setOpenModal(false);
+        }}
+      >
         <Box
           textAlign="center"
           sx={{
             position: "fixed",
-            top: "44%",
-            left: "50%",
+            top: "50%", // Center the modal vertically
+            left: "50%", // Center the modal horizontally
             transform: "translate(-50%, -50%)",
             bgcolor: "white",
-            width: "80%",
-            height: "75%",
+            width: "80%", // Set the initial width
+            height: "auto", // Set height to auto initially
             padding: "20px",
             borderRadius: "8px",
+            maxWidth: "90%", // Limit the maximum width to 90% of the viewport
           }}
         >
           <IconButton
             sx={{ position: "absolute", top: 0, right: 0 }}
-            onClick={onClose}
+            onClick={() => {
+              onClose();
+              setOpenModal(false);
+            }}
           >
             <CloseIcon
               sx={{
@@ -244,25 +257,25 @@ const ModalComponent = ({ open, onClose, selectedOrderId }) => {
                       TYPE
                     </TableCell>
                     <TableCell
-                      align="center"
+                      align="right"
                       sx={{ bgcolor: "#9A0E06", color: "white" }}
                     >
                       UNIT PRICE
                     </TableCell>
                     <TableCell
-                      align="center"
+                      align="right"
                       sx={{ bgcolor: "#9A0E06", color: "white" }}
                     >
                       QTY
                     </TableCell>
                     <TableCell
-                      align="center"
+                      align="right"
                       sx={{ bgcolor: "#9A0E06", color: "white" }}
                     >
                       DISCOUNT
                     </TableCell>
                     <TableCell
-                      align="center"
+                      align="right"
                       sx={{ bgcolor: "#9A0E06", color: "white" }}
                     >
                       TOTAL PRICE
@@ -285,16 +298,16 @@ const ModalComponent = ({ open, onClose, selectedOrderId }) => {
                           {line.PartNumPartDescription}
                         </TableCell>
                         <TableCell align="center">{line.LineType}</TableCell>
-                        <TableCell align="center">
+                        <TableCell align="right">
                           {parseFloat(line.UnitPrice).toFixed(2)}
                         </TableCell>
-                        <TableCell align="center">
+                        <TableCell align="right">
                           {parseFloat(line.OrderQty).toFixed(2)}
                         </TableCell>
-                        <TableCell align="center">
+                        <TableCell align="right">
                           {parseFloat(line.Discount).toFixed(2)}
                         </TableCell>
-                        <TableCell align="center">
+                        <TableCell align="right">
                           {parseFloat(line.TotalPrice).toFixed(2)}
                         </TableCell>
                         {/* Add more table cells */}

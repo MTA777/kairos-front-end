@@ -11,6 +11,7 @@ import {
   Button,
   Toolbar,
   TextField,
+  Box,
   TablePagination,
   // circularProgressClasses,
 } from "@mui/material";
@@ -18,6 +19,7 @@ import { Add } from "@mui/icons-material";
 import ModalComponent from "./ModalComponent";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import CreateOrderModal from "./CreateOrderModal";
 
 const columns = [
   "ORDER#",
@@ -35,9 +37,11 @@ const TableComponent = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [customerData, setCustomerData] = useState([]);
   const [openModal, setOpenModal] = useState(false);
+  const [openCreateOrderModal, setOpenCreateOrderModal] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
   const [openBackDrop, setOpenBackDrop] = useState(false);
 
+  // for orderId Modal
   const handleOpenModal = (orderId) => {
     setSelectedOrderId(orderId);
     setOpenModal(true);
@@ -46,6 +50,15 @@ const TableComponent = () => {
   const handleCloseModal = () => {
     setSelectedOrderId(null);
     setOpenModal(false);
+  };
+
+  // for createOrder Modal
+  const handleOpenCreateOrderModal = () => {
+    setOpenCreateOrderModal(true);
+  };
+
+  const handleCloseCreateOrderModal = () => {
+    setOpenCreateOrderModal(false);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -90,7 +103,11 @@ const TableComponent = () => {
   }, []);
 
   return (
-    <div>
+    <Box
+      sx={{ m: "5px auto 5px", p: "6px 60px" }}
+      component={Paper}
+      elevation={3}
+    >
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 10000 }}
         // open={fetchedData === null && openBackDrop}
@@ -100,25 +117,47 @@ const TableComponent = () => {
       </Backdrop>
       <Toolbar>
         <Button
+          onClick={handleOpenCreateOrderModal}
           variant="contained"
           startIcon={<Add />}
-          sx={{ bgcolor: "#9A0E06", marginLeft: "auto" }}
+          sx={{ bgcolor: "#9A0E06", marginLeft: "auto", fontSize: "10px" }}
         >
           New Order
         </Button>
+        <CreateOrderModal
+          open={openCreateOrderModal}
+          onClose={handleCloseCreateOrderModal}
+        />
         <TextField
           variant="outlined"
           size="small"
           placeholder="Search"
-          sx={{ marginLeft: "10px" }}
+          sx={{ marginLeft: "7px" }}
+          inputProps={{
+            style: {
+              height: "15px",
+              fontSize: "14px",
+            },
+          }}
         />
       </Toolbar>
-      <TableContainer component={Paper} elevation={3}>
+      <TableContainer component={Paper} elevation={1} sx={{ fontSize: "2px" }}>
         <Table>
           <TableHead sx={{ bgcolor: "#9A0E06" }}>
             <TableRow>
               {columns.map((column) => (
-                <TableCell sx={{ color: "white" }} key={column} align="center">
+                <TableCell
+                  sx={{ color: "white", fontSize: "12px" }}
+                  key={column}
+                  align={
+                    column === "TOTAL CHARGES" ||
+                    column === "TOTAL DISCOUNT" ||
+                    column === "GST" ||
+                    column === "TOTAL NET"
+                      ? "right"
+                      : "center"
+                  }
+                >
                   {column}
                 </TableCell>
               ))}
@@ -141,15 +180,17 @@ const TableComponent = () => {
                   <TableCell align="center">
                     {c.OrderHed_OpenOrder ? "OPEN" : "CLOSE"}
                   </TableCell>
-                  <TableCell align="center">
-                    ${c.OrderHed_TotalCharges}
+                  <TableCell align="right">
+                    ${parseFloat(c.OrderHed_TotalCharges).toFixed(2)}
                   </TableCell>
-                  <TableCell align="center">
-                    ${c.OrderHed_TotalDiscount}
+                  <TableCell align="right">
+                    ${parseFloat(c.OrderHed_TotalDiscount).toFixed(2)}
                   </TableCell>
-                  <TableCell align="center">${c.OrderHed_TotalTax}</TableCell>
-                  <TableCell align="center">
-                    ${c.OrderHed_TotalInvoiced}
+                  <TableCell align="right">
+                    ${parseFloat(c.OrderHed_TotalTax).toFixed(2)}
+                  </TableCell>
+                  <TableCell align="right">
+                    ${parseFloat(c.OrderHed_TotalInvoiced).toFixed(2)}
                   </TableCell>
                 </TableRow>
               ))}
@@ -171,7 +212,7 @@ const TableComponent = () => {
         onClose={handleCloseModal}
         selectedOrderId={selectedOrderId}
       />
-    </div>
+    </Box>
   );
 };
 

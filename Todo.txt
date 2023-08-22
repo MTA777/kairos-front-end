@@ -1,9 +1,13 @@
 //for MiddleSection
-
 1- add date range picker
-2- Fixed bug of useEffect
 
 
-//for Table
-
+//for Chart Component
 1- Implement Graph 
+
+//order create Modal
+1-change height of the datePicker
+
+//General
+1- Add proper commas to prices
+2- Implement Create Oder Modal compomnent 

@@ -17,23 +17,7 @@ import Alert from "@mui/material/Alert";
 import { useNavigate } from "react-router-dom";
 import { CardMedia } from "@mui/material";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Iptv
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+
 
 const defaultTheme = createTheme({
   typography: {
