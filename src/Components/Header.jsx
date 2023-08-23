@@ -57,7 +57,7 @@ function Header(props) {
             component="img"
             src="https://m2.kairossolutions.co/assets/media/logos/Kairos-Full1.png"
             alt="Company Logo"
-            sx={{ ml: 3 }}
+            sx={{ ml: 3, mt: 0 }}
             style={{ width: "10%", height: "auto" }}
           />
           <Typography color="#fff" align="right" noWrap sx={{ mx: 1, flex: 1 }}>
@@ -84,10 +84,9 @@ function Header(props) {
           <IconButton></IconButton>
         </Toolbar>
       </Box>
-      <Paper elevation={4} sx={{ p: 4, m: 1 }}>
+      <Paper elevation={4} sx={{ p: 2, pb: 1.5, m: 1 }}>
         <Typography
-          variant="h6"
-          sx={{ fontWeight: "bold" }}
+          sx={{ fontWeight: "bold", fontSize: "18px", mb: 0, mt: 0 }}
           display="flex"
           alignItems="center"
         >
@@ -95,11 +94,16 @@ function Header(props) {
           <VerifiedIcon sx={{ color: "blue", ml: 1 }} />
         </Typography>
         <Typography
-          variant="subtitle1"
           display="flex"
           justifyContent="flex-end"
           alignItems="center"
-          sx={{ mb: 1, color: "#9A0E06", fontWeight: "bold" }}
+          sx={{
+            mb: 0,
+            mt: 0,
+            color: "#9A0E06",
+            fontWeight: "bold",
+            fontSize: "14px",
+          }}
         >
           23 PLUMBING & GAS, 23
           <Button
@@ -109,15 +113,17 @@ function Header(props) {
             Switch Customer
           </Button>{" "}
         </Typography>
-        <MarkEmailUnreadIcon sx={{ color: "#9A0E06", fontSize: "20px" }} />
-        <LockIcon sx={{ color: "#9A0E06", fontSize: "20px" }} />
+        <MarkEmailUnreadIcon
+          sx={{ color: "#9A0E06", fontSize: "16px", mb: 0, mt: 0 }}
+        />
+        <LockIcon sx={{ color: "#9A0E06", fontSize: "16px", mb: 0, mt: 0 }} />
         <Typography
           variant="subtitle2 bold"
           sx={{ mb: 1, color: "#9A0E06", fontWeight: "bold" }}
           display="flex"
           alignItems="center"
         >
-          <LocationOnIcon sx={{ color: "#9A0E06", fontSize: "20px" }} /> POS
+          <LocationOnIcon sx={{ color: "#9A0E06", fontSize: "16px" }} /> POS
           Cash Port Hedland (Internal Use Only)~POS Cash Port Hedland (Internal
           Use Only)~ ~AUSTRALIA
         </Typography>

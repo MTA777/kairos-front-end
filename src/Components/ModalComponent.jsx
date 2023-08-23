@@ -93,7 +93,7 @@ const ModalComponent = ({ open, onClose, selectedOrderId }) => {
           textAlign="center"
           sx={{
             position: "fixed",
-            top: "50%", // Center the modal vertically
+            top: "35%", // Center the modal vertically
             left: "50%", // Center the modal horizontally
             transform: "translate(-50%, -50%)",
             bgcolor: "white",
@@ -240,43 +240,48 @@ const ModalComponent = ({ open, onClose, selectedOrderId }) => {
                   <TableRow>
                     <TableCell
                       align="center"
-                      sx={{ bgcolor: "#9A0E06", color: "white" }}
+                      sx={{
+                        bgcolor: "#9A0E06",
+                        color: "white",
+                        fontSize: "14px",
+                        p: "2px 16px",
+                      }}
                     >
                       PARTNUM
                     </TableCell>
                     <TableCell
                       align="center"
-                      sx={{ bgcolor: "#9A0E06", color: "white" }}
+                      sx={{ bgcolor: "#9A0E06", color: "white", p: "2px 16px" }}
                     >
                       DESCRIPTION
                     </TableCell>
                     <TableCell
                       align="center"
-                      sx={{ bgcolor: "#9A0E06", color: "white" }}
+                      sx={{ bgcolor: "#9A0E06", color: "white", p: "2px 16px" }}
                     >
                       TYPE
                     </TableCell>
                     <TableCell
                       align="right"
-                      sx={{ bgcolor: "#9A0E06", color: "white" }}
+                      sx={{ bgcolor: "#9A0E06", color: "white", p: "2px 16px" }}
                     >
                       UNIT PRICE
                     </TableCell>
                     <TableCell
                       align="right"
-                      sx={{ bgcolor: "#9A0E06", color: "white" }}
+                      sx={{ bgcolor: "#9A0E06", color: "white", p: "2px 16px" }}
                     >
                       QTY
                     </TableCell>
                     <TableCell
                       align="right"
-                      sx={{ bgcolor: "#9A0E06", color: "white" }}
+                      sx={{ bgcolor: "#9A0E06", color: "white", p: "2px 16px" }}
                     >
                       DISCOUNT
                     </TableCell>
                     <TableCell
                       align="right"
-                      sx={{ bgcolor: "#9A0E06", color: "white" }}
+                      sx={{ bgcolor: "#9A0E06", color: "white", p: "2px 16px" }}
                     >
                       TOTAL PRICE
                     </TableCell>
@@ -286,28 +291,81 @@ const ModalComponent = ({ open, onClose, selectedOrderId }) => {
                 <TableBody>
                   {fetchedData?.lines.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={7} align="center">
+                      <TableCell
+                        colSpan={7}
+                        align="center"
+                        sx={{
+                          fontSize: "14px",
+                          p: "4px 16px",
+                        }}
+                      >
                         No data Found for this Table
                       </TableCell>
                     </TableRow>
                   ) : (
                     fetchedData?.lines.map((line) => (
                       <TableRow key={line.PartNum}>
-                        <TableCell align="center">{line.PartNum}</TableCell>
-                        <TableCell align="center">
+                        <TableCell
+                          align="center"
+                          sx={{
+                            fontSize: "14px",
+                            p: "2px 16px",
+                          }}
+                        >
+                          {line.PartNum}
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          sx={{
+                            fontSize: "14px",
+                            p: "2px 16px",
+                          }}
+                        >
                           {line.PartNumPartDescription}
                         </TableCell>
-                        <TableCell align="center">{line.LineType}</TableCell>
-                        <TableCell align="right">
+                        <TableCell
+                          align="center"
+                          sx={{
+                            fontSize: "14px",
+                            p: "2px 16px",
+                          }}
+                        >
+                          {line.LineType}
+                        </TableCell>
+                        <TableCell
+                          align="right"
+                          sx={{
+                            fontSize: "14px",
+                            p: "2px 16px",
+                          }}
+                        >
                           {parseFloat(line.UnitPrice).toFixed(2)}
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell
+                          align="right"
+                          sx={{
+                            fontSize: "14px",
+                            p: "2px 16px",
+                          }}
+                        >
                           {parseFloat(line.OrderQty).toFixed(2)}
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell
+                          align="right"
+                          sx={{
+                            fontSize: "14px",
+                            p: "2px 16px",
+                          }}
+                        >
                           {parseFloat(line.Discount).toFixed(2)}
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell
+                          align="right"
+                          sx={{
+                            fontSize: "14px",
+                            p: "2px 16px",
+                          }}
+                        >
                           {parseFloat(line.TotalPrice).toFixed(2)}
                         </TableCell>
                         {/* Add more table cells */}
@@ -343,37 +401,67 @@ const ModalComponent = ({ open, onClose, selectedOrderId }) => {
                   <TableRow>
                     <TableCell
                       align="center"
-                      sx={{ bgcolor: "#9A0E06", color: "white" }}
+                      sx={{
+                        bgcolor: "#9A0E06",
+                        color: "white",
+                        fontSize: "14px",
+                        p: "2px 16px",
+                      }}
                     >
                       SHIP TO
                     </TableCell>
                     <TableCell
                       align="center"
-                      sx={{ bgcolor: "#9A0E06", color: "white" }}
+                      sx={{
+                        bgcolor: "#9A0E06",
+                        color: "white",
+                        fontSize: "14px",
+                        p: "2px 16px",
+                      }}
                     >
                       PACK NO
                     </TableCell>
                     <TableCell
                       align="center"
-                      sx={{ bgcolor: "#9A0E06", color: "white" }}
+                      sx={{
+                        bgcolor: "#9A0E06",
+                        color: "white",
+                        fontSize: "14px",
+                        p: "2px 16px",
+                      }}
                     >
                       ORDER DATE
                     </TableCell>
                     <TableCell
                       align="center"
-                      sx={{ bgcolor: "#9A0E06", color: "white" }}
+                      sx={{
+                        bgcolor: "#9A0E06",
+                        color: "white",
+                        fontSize: "14px",
+                        p: "2px 16px",
+                      }}
                     >
                       INVOICED
                     </TableCell>
                     <TableCell
                       align="center"
-                      sx={{ bgcolor: "#9A0E06", color: "white" }}
+                      sx={{
+                        bgcolor: "#9A0E06",
+                        color: "white",
+                        fontSize: "14px",
+                        p: "2px 16px",
+                      }}
                     >
                       SHIP DATE
                     </TableCell>
                     <TableCell
                       align="center"
-                      sx={{ bgcolor: "#9A0E06", color: "white" }}
+                      sx={{
+                        bgcolor: "#9A0E06",
+                        color: "white",
+                        fontSize: "14px",
+                        p: "2px 16px",
+                      }}
                     >
                       DOWNLOADS
                     </TableCell>
@@ -383,7 +471,14 @@ const ModalComponent = ({ open, onClose, selectedOrderId }) => {
                 <TableBody>
                   {/* change this to actual shipments data when available */}
                   <TableRow>
-                    <TableCell colSpan={7} align="center">
+                    <TableCell
+                      colSpan={7}
+                      align="center"
+                      sx={{
+                        fontSize: "14px",
+                        p: "4px 16px",
+                      }}
+                    >
                       No data Found for this Table
                     </TableCell>
                   </TableRow>

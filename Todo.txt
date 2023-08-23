@@ -3,11 +3,12 @@
 
 
 //for Chart Component
-1- Implement Graph 
+1- Implement Graph API
 
 //order create Modal
 1-change height of the datePicker
 
 //General
 1- Add proper commas to prices
-2- Implement Create Oder Modal compomnent 
+2- Implement API in CreateOderModal compomnent 
+3- Add Sort Options

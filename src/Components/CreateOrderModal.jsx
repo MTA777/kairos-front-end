@@ -36,6 +36,39 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 const CreateOrderModal = ({ open, onClose }) => {
   const [openBackDrop, setOpenBackDrop] = useState(false);
+  const [fetchedPartsData, setFetchedPartsData] = useState({});
+
+  const fetchData = async () => {
+    try {
+      console.log("fetching parts");
+      // const authToken = localStorage.getItem("jwtToken");
+      const authToken = localStorage.getItem("jwtToken");
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      };
+
+      const apiUrl = "https://m.kairossolutions.co/api/mpartinfo/getpartlist";
+
+      const response = await axios.get(apiUrl, config);
+      // Handle the response data here
+      setFetchedPartsData(response.data);
+      console.log("Fetched Parts:", fetchedPartsData);
+    } catch (error) {
+      // Handle errors here
+      console.error("Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch data when modal is opened
+    if (open) {
+      console.log("Opening Create Order Modal");
+      fetchData();
+    }
+  }, [open]); // Trigger the effect only when 'open' changes
 
   return (
     <>
@@ -51,7 +84,7 @@ const CreateOrderModal = ({ open, onClose }) => {
           textAlign="center"
           sx={{
             position: "fixed",
-            top: "50%", // Center the modal vertically
+            top: "43%", // Center the modal vertically
             left: "50%", // Center the modal horizontally
             transform: "translate(-50%, -50%)",
             bgcolor: "white",
@@ -109,27 +142,25 @@ const CreateOrderModal = ({ open, onClose }) => {
                 </Typography>
               </Box>
               <Box sx={{ m: 1, mt: 2 }}>
-                <Typography variant="body2" display="flex" alignItems="center">
-                  <TextField
-                    sx={{
-                      width: "200px",
-                      fontSize: "16px",
-                      "& .MuiInputBase-root": {
-                        height: 30,
-                      },
-                    }}
-                    variant="outlined"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="flex-end">
-                          <SearchIcon sx={{ color: "#9A0E06" }} />
-                        </InputAdornment>
-                      ),
-                    }}
-                    id="outlined-basic"
-                    label="Search"
-                  />
-                </Typography>
+                <TextField
+                  sx={{
+                    width: "200px",
+                    fontSize: "16px",
+                    "& .MuiInputBase-root": {
+                      height: 30,
+                    },
+                  }}
+                  variant="outlined"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="end">
+                        <SearchIcon sx={{ color: "#9A0E06" }} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  id="outlined-basic"
+                  label="Search"
+                />
               </Box>
               <Box sx={{ m: 1 }}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -173,7 +204,8 @@ const CreateOrderModal = ({ open, onClose }) => {
                       sx={{
                         bgcolor: "#9A0E06",
                         color: "white",
-                        fontSize: "12px",
+                        fontSize: "14px",
+                        p: "2px 2px",
                       }}
                     >
                       PARTNUM
@@ -183,7 +215,8 @@ const CreateOrderModal = ({ open, onClose }) => {
                       sx={{
                         bgcolor: "#9A0E06",
                         color: "white",
-                        fontSize: "12px",
+                        fontSize: "14px",
+                        p: "2px 16px",
                       }}
                     >
                       DESCRIPTION
@@ -193,7 +226,8 @@ const CreateOrderModal = ({ open, onClose }) => {
                       sx={{
                         bgcolor: "#9A0E06",
                         color: "white",
-                        fontSize: "12px",
+                        fontSize: "14px",
+                        p: "2px 16px",
                       }}
                     >
                       TYPE
@@ -203,7 +237,8 @@ const CreateOrderModal = ({ open, onClose }) => {
                       sx={{
                         bgcolor: "#9A0E06",
                         color: "white",
-                        fontSize: "12px",
+                        fontSize: "14px",
+                        p: "2px 16px",
                       }}
                     >
                       UNIT PRICE
@@ -213,7 +248,8 @@ const CreateOrderModal = ({ open, onClose }) => {
                       sx={{
                         bgcolor: "#9A0E06",
                         color: "white",
-                        fontSize: "12px",
+                        fontSize: "14px",
+                        p: "2px 16px",
                       }}
                     >
                       QTY
@@ -223,7 +259,8 @@ const CreateOrderModal = ({ open, onClose }) => {
                       sx={{
                         bgcolor: "#9A0E06",
                         color: "white",
-                        fontSize: "12px",
+                        fontSize: "14px",
+                        p: "2px 16px",
                       }}
                     >
                       DISCOUNT
@@ -233,20 +270,103 @@ const CreateOrderModal = ({ open, onClose }) => {
                       sx={{
                         bgcolor: "#9A0E06",
                         color: "white",
-                        fontSize: "12px",
+                        fontSize: "14px",
+                        p: "2px 16px",
                       }}
                     >
                       TOTAL PRICE
                     </TableCell>
                   </TableRow>
                 </TableHead>
-                {/* Table Body */}
+              </Table>
+              <Table style={{ tableLayout: "fixed" }}>
                 <TableBody>
-                  <TableRow>
-                    <TableCell colSpan={7} align="center">
-                      No data found for this table
-                    </TableCell>
-                  </TableRow>
+                  <Box
+                    style={{
+                      maxHeight: "75px", // Set the maximum height of the scrollbar container
+                      overflowX: "auto", // Add a vertical scrollbar when content overflows
+                      width: "100%", // Match the width of the table head
+                    }}
+                  >
+                    {fetchedPartsData?.part &&
+                    fetchedPartsData.part.length > 0 ? (
+                      fetchedPartsData.part.map((part) => (
+                        <TableRow key={Math.random()}>
+                          <TableCell
+                            align="center"
+                            sx={{
+                              fontSize: "14px",
+                              p: "2px 16px",
+                              width: "3px", // Set a specific width for the content cell
+                            }}
+                          >
+                            {part.Part_PartNum}
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                            sx={{
+                              fontSize: "14px",
+                              p: "2px 16px",
+                              width: "8px",
+                            }}
+                          >
+                            {part.Part_PartDescription}
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                            sx={{
+                              fontSize: "14px",
+                              p: "2px 16px",
+                            }}
+                          >
+                            Part
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                            sx={{
+                              fontSize: "14px",
+                              p: "2px 16px",
+                            }}
+                          >
+                            {part.Part_UnitPrice}
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                            sx={{
+                              fontSize: "14px",
+                              p: "2px 16px",
+                            }}
+                          >
+                            {part.PartBin_OnhandQty}
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                            sx={{
+                              fontSize: "14px",
+                              p: "2px 16px",
+                            }}
+                          >
+                            X
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                            sx={{
+                              fontSize: "14px",
+                              p: "2px 16px",
+                            }}
+                          >
+                            X
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={7} align="center">
+                          No data found for this table
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </Box>
                 </TableBody>
               </Table>
             </TableContainer>
@@ -267,102 +387,12 @@ const CreateOrderModal = ({ open, onClose }) => {
             </Typography>
             <Box display="flex" flexDirection="row">
               <Box display="flex" flexDirection="column">
-                <Box sx={{ m: 1, mr: 10 }}>
-                  <Typography display="flex" alignItems="center">
-                    Address:
-                    <TextField
-                      sx={{
-                        ml: 2,
-                        width: "200px",
-                        fontSize: "16px",
-                        "& .MuiInputBase-root": {
-                          height: 30,
-                        },
-                      }}
-                      variant="outlined"
-                    />
-                  </Typography>
+                <Box sx={{}} display="flex" alignItems="center">
+                  <Typography sx={{ ml: 4, mr: 1 }}>OTS:</Typography>
+                  <Checkbox />
                 </Box>
-                <Box sx={{ m: 1, mr: 10, mt: 0 }}>
-                  <Typography display="flex" alignItems="center" sx={{ ml: 2 }}>
-                    Name:
-                    <TextField
-                      sx={{
-                        ml: 2,
-                        width: "200px",
-                        fontSize: "16px",
-                        "& .MuiInputBase-root": {
-                          height: 30,
-                        },
-                      }}
-                      variant="outlined"
-                    />
-                  </Typography>
-                </Box>
-                <Box sx={{ m: 1, mr: 10, mt: 0 }}>
-                  <Typography display="flex" alignItems="center" sx={{ ml: 4 }}>
-                    City:
-                    <TextField
-                      sx={{
-                        ml: 2,
-                        width: "200px",
-                        fontSize: "16px",
-                        "& .MuiInputBase-root": {
-                          height: 30,
-                        },
-                      }}
-                      variant="outlined"
-                    />
-                  </Typography>
-                </Box>
-              </Box>
-              <Box display="flex" flexDirection="column">
-                <Box sx={{ m: 1, mr: 10, mt: 0 }}>
-                  <Typography display="flex" alignItems="center" sx={{ ml: 4 }}>
-                    OTS: <Checkbox />
-                  </Typography>
-                </Box>
-                <Box sx={{ m: 1, mr: 10, mt: 0 }}>
-                  <Typography display="flex" alignItems="center" sx={{ ml: 2 }}>
-                    Addr1:
-                    <TextField
-                      sx={{
-                        ml: 2,
-                        width: "200px",
-                        fontSize: "16px",
-                        "& .MuiInputBase-root": {
-                          height: 30,
-                        },
-                      }}
-                      variant="outlined"
-                    />
-                  </Typography>
-                </Box>
-                <Box sx={{ m: 1, mr: 10, mt: 0 }}>
-                  <Typography
-                    display="flex"
-                    alignItems="center"
-                    sx={{ ml: 4.5 }}
-                  >
-                    Zip:
-                    <TextField
-                      sx={{
-                        ml: 2,
-                        width: "200px",
-                        fontSize: "16px",
-                        "& .MuiInputBase-root": {
-                          height: 30,
-                        },
-                      }}
-                      variant="outlined"
-                    />
-                  </Typography>
-                </Box>
-              </Box>
-
-              <Box sx={{ m: 1, mr: 10, mt: 1 }}>
-                <Typography display="flex" alignItems="center" sx={{ ml: 4 }}>
-                  Addr2:
+                <Box sx={{ m: 1, mr: 10 }} display="flex" alignItems="center">
+                  <Typography>Address:</Typography>
                   <TextField
                     sx={{
                       ml: 2,
@@ -374,13 +404,101 @@ const CreateOrderModal = ({ open, onClose }) => {
                     }}
                     variant="outlined"
                   />
-                </Typography>
+                </Box>
+                <Box
+                  sx={{ m: 1, mr: 10, mt: 0 }}
+                  display="flex"
+                  alignItems="center"
+                >
+                  <Typography sx={{ ml: 2 }}>Name:</Typography>
+                  <TextField
+                    sx={{
+                      ml: 2,
+                      width: "200px",
+                      fontSize: "16px",
+                      "& .MuiInputBase-root": {
+                        height: 30,
+                      },
+                    }}
+                    variant="outlined"
+                  />
+                </Box>
+                <Box
+                  sx={{ m: 1, mr: 10, mt: 0 }}
+                  display="flex"
+                  alignItems="center"
+                >
+                  <Typography sx={{ ml: 4 }}>City:</Typography>
+                  <TextField
+                    sx={{
+                      ml: 2,
+                      width: "200px",
+                      fontSize: "16px",
+                      "& .MuiInputBase-root": {
+                        height: 30,
+                      },
+                    }}
+                    variant="outlined"
+                  />
+                </Box>
+              </Box>
+              <Box display="flex" flexDirection="column">
+                <Box sx={{ m: 1, mr: 10 }} display="flex" alignItems="center">
+                  <Typography sx={{ ml: 5 }}>Zip:</Typography>
+                  <TextField
+                    sx={{
+                      ml: 2,
+                      width: "200px",
+                      fontSize: "16px",
+                      "& .MuiInputBase-root": {
+                        height: 30,
+                      },
+                    }}
+                    variant="outlined"
+                  />
+                </Box>
+                <Box
+                  sx={{ m: 1, mr: 10, mt: 0 }}
+                  display="flex"
+                  alignItems="center"
+                >
+                  <Typography sx={{ ml: 2.5 }}>Addr1:</Typography>
+                  <TextField
+                    sx={{
+                      ml: 2,
+                      width: "200px",
+                      fontSize: "16px",
+                      "& .MuiInputBase-root": {
+                        height: 30,
+                      },
+                    }}
+                    variant="outlined"
+                  />
+                </Box>
+                <Box
+                  sx={{ m: 1, mr: 10, mt: 1 }}
+                  display="flex"
+                  alignItems="center"
+                >
+                  <Typography sx={{ ml: 2.5 }}>Addr2:</Typography>
+                  <TextField
+                    sx={{
+                      ml: 2,
+                      width: "200px",
+                      fontSize: "16px",
+                      "& .MuiInputBase-root": {
+                        height: 30,
+                      },
+                    }}
+                    variant="outlined"
+                  />
+                </Box>
               </Box>
             </Box>
           </section>
           <Box textAlign="right">
             <Button
-              fontsize
+              // fontSize
               variant="contained"
               sx={{ bgcolor: "#1565C0", marginLeft: "auto", fontSize: "10px" }}
               onClick={onClose}
@@ -388,7 +506,7 @@ const CreateOrderModal = ({ open, onClose }) => {
               Close
             </Button>
             <Button
-              fontsize
+              // fontSize
               variant="contained"
               sx={{ bgcolor: "#9A0E06", marginLeft: 2, fontSize: "10px" }}
             >

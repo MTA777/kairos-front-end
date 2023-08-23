@@ -104,7 +104,7 @@ const TableComponent = () => {
 
   return (
     <Box
-      sx={{ m: "5px auto 5px", p: "6px 60px" }}
+      sx={{ m: "0 auto 5px", p: "6px 60px" }}
       component={Paper}
       elevation={3}
     >
@@ -141,7 +141,11 @@ const TableComponent = () => {
           }}
         />
       </Toolbar>
-      <TableContainer component={Paper} elevation={1} sx={{ fontSize: "2px" }}>
+      <TableContainer
+        component={Paper}
+        elevation={1}
+        sx={{ fontSize: "2px", width: "105%" }}
+      >
         <Table>
           <TableHead sx={{ bgcolor: "#9A0E06" }}>
             <TableRow>

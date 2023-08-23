@@ -32,7 +32,7 @@ const ChartComponent = () => {
         borderColor: "rgb(75, 192, 192)",
         tension: 0.5,
         fill: true,
-        backgroundColor: "#E0E8FE",
+        backgroundColor: "#c5eaec",
       },
     ],
   };
@@ -58,7 +58,7 @@ const ChartComponent = () => {
   };
 
   return (
-    <Box sx={{ m: "5px", p: "15px" }} component={Paper} elevation={3}>
+    <Box sx={{ m: "0px auto 5px", p: "15px" }} component={Paper} elevation={3}>
       <Typography
         sx={{
           fontSize: "16px",
