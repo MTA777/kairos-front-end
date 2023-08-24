@@ -20,6 +20,7 @@ import ModalComponent from "./ModalComponent";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import CreateOrderModal from "./CreateOrderModal";
+import { stringNumFormat } from "../Utils/stringNumFormat";
 
 const columns = [
   "ORDER#",
@@ -120,7 +121,12 @@ const TableComponent = () => {
           onClick={handleOpenCreateOrderModal}
           variant="contained"
           startIcon={<Add />}
-          sx={{ bgcolor: "#9A0E06", marginLeft: "auto", fontSize: "10px" }}
+          sx={{
+            bgcolor: "#9A0E06",
+            marginLeft: "auto",
+            fontSize: "10px",
+            "&:hover": { bgcolor: "#ae3e38" },
+          }}
         >
           New Order
         </Button>
@@ -185,16 +191,16 @@ const TableComponent = () => {
                     {c.OrderHed_OpenOrder ? "OPEN" : "CLOSE"}
                   </TableCell>
                   <TableCell align="right">
-                    ${parseFloat(c.OrderHed_TotalCharges).toFixed(2)}
+                    ${stringNumFormat(c.OrderHed_TotalCharges, 2, 2)}
                   </TableCell>
                   <TableCell align="right">
-                    ${parseFloat(c.OrderHed_TotalDiscount).toFixed(2)}
+                    ${stringNumFormat(c.OrderHed_TotalDiscount, 2, 2)}
                   </TableCell>
                   <TableCell align="right">
-                    ${parseFloat(c.OrderHed_TotalTax).toFixed(2)}
+                    ${stringNumFormat(c.OrderHed_TotalTax, 2, 2)}
                   </TableCell>
                   <TableCell align="right">
-                    ${parseFloat(c.OrderHed_TotalInvoiced).toFixed(2)}
+                    ${stringNumFormat(c.OrderHed_TotalInvoiced, 2, 2)}
                   </TableCell>
                 </TableRow>
               ))}

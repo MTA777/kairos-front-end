@@ -108,7 +108,12 @@ function Header(props) {
           23 PLUMBING & GAS, 23
           <Button
             variant="contained"
-            sx={{ bgcolor: "#9A0E06", fontSize: "10px", ml: 1 }}
+            sx={{
+              bgcolor: "#9A0E06",
+              fontSize: "10px",
+              ml: 1,
+              "&:hover": { bgcolor: "#ae3e38" },
+            }}
           >
             Switch Customer
           </Button>{" "}
@@ -147,7 +152,12 @@ function Header(props) {
           </Typography>
           <Button
             variant="contained"
-            sx={{ ml: 3, bgcolor: "#9A0E06", fontSize: "10px" }}
+            sx={{
+              ml: 3,
+              bgcolor: "#9A0E06",
+              fontSize: "10px",
+              "&:hover": { bgcolor: "#ae3e38" },
+            }}
             startIcon={<DownloadIcon />}
           >
             Statement

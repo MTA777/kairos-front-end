@@ -17,8 +17,6 @@ import Alert from "@mui/material/Alert";
 import { useNavigate } from "react-router-dom";
 import { CardMedia } from "@mui/material";
 
-
-
 const defaultTheme = createTheme({
   typography: {
     fontFamily: "Arial",
@@ -174,7 +172,12 @@ export default function KairosSignIn() {
                   fullWidth
                   variant="contained"
                   disabled={disableButton}
-                  sx={{ mt: 3, mb: 2, bgcolor: "#924540" }}
+                  sx={{
+                    mt: 3,
+                    mb: 2,
+                    bgcolor: "#924540",
+                    "&:hover": { bgcolor: "#ae3e38" },
+                  }}
                 >
                   Sign In
                 </Button>
