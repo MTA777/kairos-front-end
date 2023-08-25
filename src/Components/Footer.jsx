@@ -12,7 +12,7 @@ const Footer = () => {
         bgcolor: "#9A0E06",
         color: "white",
         py: 2,
-        mt: "auto",
+        mt: 0.5,
         textAlign: "center",
       }}
     >

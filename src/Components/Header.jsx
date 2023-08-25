@@ -84,7 +84,10 @@ function Header(props) {
           <IconButton></IconButton>
         </Toolbar>
       </Box>
-      <Paper elevation={4} sx={{ p: 2, pb: 1.5, m: 1 }}>
+      <Paper
+        elevation={4}
+        sx={{ p: 2, pb: 0.2, m: 1, mb: 0.5, mt: 0.5, pt: 1 }}
+      >
         <Typography
           sx={{ fontWeight: "bold", fontSize: "18px", mb: 0, mt: 0 }}
           display="flex"
@@ -93,45 +96,42 @@ function Header(props) {
           POS Cash Port Hedland (Internal Use Only)
           <VerifiedIcon sx={{ color: "blue", ml: 1 }} />
         </Typography>
-        <Typography
-          display="flex"
-          justifyContent="flex-end"
-          alignItems="center"
-          sx={{
-            mb: 0,
-            mt: 0,
-            color: "#9A0E06",
-            fontWeight: "bold",
-            fontSize: "14px",
-          }}
-        >
-          23 PLUMBING & GAS, 23
-          <Button
-            variant="contained"
-            sx={{
-              bgcolor: "#9A0E06",
-              fontSize: "10px",
-              ml: 1,
-              "&:hover": { bgcolor: "#ae3e38" },
-            }}
-          >
-            Switch Customer
-          </Button>{" "}
-        </Typography>
         <MarkEmailUnreadIcon
           sx={{ color: "#9A0E06", fontSize: "16px", mb: 0, mt: 0 }}
         />
         <LockIcon sx={{ color: "#9A0E06", fontSize: "16px", mb: 0, mt: 0 }} />
-        <Typography
-          variant="subtitle2 bold"
-          sx={{ mb: 1, color: "#9A0E06", fontWeight: "bold" }}
-          display="flex"
-          alignItems="center"
-        >
-          <LocationOnIcon sx={{ color: "#9A0E06", fontSize: "16px" }} /> POS
-          Cash Port Hedland (Internal Use Only)~POS Cash Port Hedland (Internal
-          Use Only)~ ~AUSTRALIA
-        </Typography>
+        <Box display="flex" alignItems="center" justifyContent="space-between">
+          <Typography
+            variant="subtitle2 bold"
+            sx={{ mb: 1, color: "#9A0E06", fontWeight: "bold" }}
+          >
+            <LocationOnIcon sx={{ color: "#9A0E06", fontSize: "16px" }} /> POS
+            Cash Port Hedland (Internal Use Only)~POS Cash Port Hedland
+            (Internal Use Only)~ ~AUSTRALIA
+          </Typography>
+          <Typography
+            sx={{
+              mb: 0,
+              mt: 0,
+              color: "#9A0E06",
+              fontWeight: "bold",
+              fontSize: "14px",
+            }}
+          >
+            23 PLUMBING & GAS, 23
+            <Button
+              variant="contained"
+              sx={{
+                bgcolor: "#9A0E06",
+                fontSize: "10px",
+                ml: 1,
+                "&:hover": { bgcolor: "#ae3e38" },
+              }}
+            >
+              Switch Customer
+            </Button>{" "}
+          </Typography>
+        </Box>
         <Box display="flex">
           <Typography variant="body2" sx={{ mr: 5 }}>
             Review Date:
@@ -162,13 +162,11 @@ function Header(props) {
           >
             Statement
           </Button>
-        </Box>
-        <Box display="flex" justifyContent="center">
           <Typography
             variant="body2"
             display="flex"
             alignItems="center"
-            sx={{ mr: 10 }}
+            sx={{ mr: 10, ml: 10 }}
           >
             <ShoppingCartIcon sx={{ color: "#9A0E06", marginRight: "4px" }} />
             Open Order:{" "}
@@ -182,6 +180,7 @@ function Header(props) {
             <span style={{ color: "#9A0E06", marginLeft: "4px" }}>36</span>
           </Typography>
         </Box>
+        {/* <Box display="flex" justifyContent="center"></Box> */}
       </Paper>
     </React.Fragment>
   );

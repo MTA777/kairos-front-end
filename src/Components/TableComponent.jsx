@@ -105,7 +105,7 @@ const TableComponent = () => {
 
   return (
     <Box
-      sx={{ m: "0 auto 5px", p: "6px 60px" }}
+      sx={{ m: "3px 0px auto 5px", p: "6px 60px" }}
       component={Paper}
       elevation={3}
     >

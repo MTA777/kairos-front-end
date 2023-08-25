@@ -1,19 +1,7 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
-import {
-  Modal,
-  Box,
-  Typography,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  IconButton,
-  Paper,
-} from "@mui/material";
+import { Box, Typography, Paper } from "@mui/material";
 
 Chart.register(...registerables);
 
@@ -40,7 +28,6 @@ const ChartComponent = () => {
   const options = {
     maintainAspectRatio: false,
     responsive: true,
-    // aspectRatio: 2, // Adjust the aspect ratio to control height and width
     scales: {
       x: {
         grid: {
@@ -55,10 +42,19 @@ const ChartComponent = () => {
         },
       },
     },
+
+    animation: {
+      duration: 5000, // Animation duration in milliseconds
+      easing: "easeInOutQuart", // Easing function for animation
+    },
   };
 
   return (
-    <Box sx={{ m: "0px auto 5px", p: "15px" }} component={Paper} elevation={3}>
+    <Box
+      sx={{ m: "3px 0px auto 5px", p: "15px" }}
+      component={Paper}
+      elevation={3}
+    >
       <Typography
         sx={{
           fontSize: "16px",

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, InputAdornment } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
+import Autocomplete from "@mui/material/Autocomplete";
+import Alert from "@mui/material/Alert";
 import {
   Modal,
   Box,
@@ -39,11 +41,11 @@ const CreateOrderModal = ({ open, onClose }) => {
   const [fetchedPartsData, setFetchedPartsData] = useState({});
   const [openModal, setOpenModal] = useState(false);
   const [disableSaveButton, setDisableSaveButton] = useState(false);
+  const [responseMessage, setResponseMessage] = useState("");
 
   const fetchData = async () => {
     try {
       console.log("fetching parts");
-      // const authToken = localStorage.getItem("jwtToken");
       const authToken = localStorage.getItem("jwtToken");
 
       const config = {
@@ -70,7 +72,7 @@ const CreateOrderModal = ({ open, onClose }) => {
     // Fetch data when modal is opened
     if (open) {
       console.log("Opening backdrop");
-      setFetchedPartsData(null); // to flush data stored, on previous render
+      // setFetchedPartsData(null); // to flush data stored, on previous render
       fetchData();
       setOpenBackDrop(true);
     }
@@ -94,8 +96,7 @@ const CreateOrderModal = ({ open, onClose }) => {
     //send req to store order
     try {
       console.log("Saving Order...");
-      const authToken =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjMzMjljNmNlZDkyOTlhNzJiYzIwMDE3IiwiYmFzZTY0dG9rZW4iOiJhMkZwY205elJHVjJNVHBMUUdseWIzTlFZWE56T1RrPSIsInVzZXJuYW1lIjoia2Fpcm9zRGV2MSIsImFwaXVybCI6Imh0dHBzOi8vY2xvdWQyLmthaXJvc3NvbHV0aW9ucy5jby9LMjAyM1VBVEdBTC9hcGkvdjEvIiwiY29tcGFueSI6IjEwR0FMIiwiY29tcGFueW5hbWUiOiJLYWlyb3MgQnVzaW5lc3MgU29sdXRpb25zIFB0eSBMdGQiLCJGaXJzdE5hbWUiOiJMaWFtIFRlc3QiLCJFbWFpbCI6InUua2hhbGlkMjIyQGdtYWlsLmNvbSIsIlBob25lIjoiMDQyNCA1MTEgMjQzIiwiRGF0ZSI6IjIwMjMtMDctMjRUMDc6NTQ6MzYuNTAzWiIsImlzQWRtaW4iOmZhbHNlLCJwbGFudCI6Ik9TQiIsInNlY3VyaXR5SnNvbiI6IiIsImN1c3RvbWVybnVtIjoiNDQ3NCIsImN1c3RpZCI6Ik9TQkMwMDA1IiwiY29ubnVtIjoiNDQ3NCIsInBhc3N3b3JkIjoiMTIzNDU2Iiwicm9sZSI6IkN1c3RDbnQiLCJzd2l0Y2hpbmciOmZhbHNlfSwiaWF0IjoxNjkwMTg1Mjc2fQ.92NsfLOpFXV3f8JcTykiU7odrntKvLG_2YuBGYKu0IM";
+      const authToken = localStorage.getItem("jwtToken");
 
       const config = {
         headers: {
@@ -143,6 +144,11 @@ const CreateOrderModal = ({ open, onClose }) => {
       // Handle the response data here
 
       console.log("Response:", response.data);
+      setResponseMessage(response.data);
+      setTimeout(() => {
+        setResponseMessage(""); //to make alert disappear
+      }, 6000);
+
       setDisableSaveButton(false);
       setOpenBackDrop(false);
       document.getElementById("user_details").reset(); //not sure whether to use this or not
@@ -175,7 +181,7 @@ const CreateOrderModal = ({ open, onClose }) => {
           textAlign="center"
           sx={{
             position: "fixed",
-            top: "43%", // Center the modal vertically
+            top: "43%", // for modal vertically
             left: "50%", // Center the modal horizontally
             transform: "translate(-50%, -50%)",
             bgcolor: "white",
@@ -223,6 +229,7 @@ const CreateOrderModal = ({ open, onClose }) => {
             <Box
               display="flex"
               flexDirection="row"
+              justifyContent="space-around"
               sx={{ mb: 2 }}
               textAlign="center"
             >
@@ -255,15 +262,29 @@ const CreateOrderModal = ({ open, onClose }) => {
                   id="outlined-basic"
                   label="Search"
                 />
+                {/* <Autocomplete
+                  disablePortal
+                  id="search-parts"
+                  options={fetchedPartsData.part}
+                  sx={{ width: 300 }}
+                  renderInput={(params) => (
+                    <TextField {...params} label="Movie" />
+                  )}
+                /> */}
               </Box>
-              <Box sx={{ m: 1 }}>
+              <Box sx={{ m: 1, mt: 2 }}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
-                    label="Enter Date"
-                    slotProps={{ textField: { size: "small" } }}
-                    sx={{
-                      width: "80%",
-                      fontSize: "14px",
+                    // label="Enter Date"
+                    slotProps={{
+                      textField: {
+                        sx: {
+                          "> .MuiOutlinedInput-root": {
+                            height: 30, // whatever height you want here
+                            width: "80%",
+                          },
+                        },
+                      },
                     }}
                   />
                 </LocalizationProvider>
@@ -485,7 +506,21 @@ const CreateOrderModal = ({ open, onClose }) => {
               Shipment Details
             </Typography>
             <form id="user_details" onSubmit={handleSubmit}>
-              <Box display="flex" flexDirection="row" noValidate sx={{ mt: 1 }}>
+              {responseMessage && (
+                <Alert
+                  sx={{
+                    width: "60%",
+                    m: 1,
+                    ml: "auto",
+                    mr: "auto",
+                  }}
+                  severity={responseMessage.message}
+                  onClose={() => setResponseMessage("")}
+                >
+                  OrderNum: <b>{responseMessage.OrderNum}</b> added successfully
+                </Alert>
+              )}
+              <Box display="flex" flexDirection="row" noValidate sx={{ mt: 0 }}>
                 <Box display="flex" flexDirection="column">
                   <Box display="flex" alignItems="center">
                     <Typography sx={{ ml: 4, mr: 1, fontSize: 14 }}>
